@@ -12,7 +12,7 @@ function replyLater() {
   const promise = new Promise<{ result: string; label: string }>(done => { resolve = done; });
   return { promise, resolve };
 }
-beforeEach(page);
+beforeEach(() => { document.head.innerHTML = ""; page(); });
 
 it("ignores an old response after the selected edition changes", async () => {
   let oldResolve!: (value: { result: string; label: string }) => void;
@@ -78,8 +78,13 @@ it("places the Amazon result below the product heading rather than a hidden assi
 it.each([
   ["rakuten-books-product", "https://books.rakuten.co.jp/rb/10000001/", "#productInfo h1"],
   ["rakuten-market-product", "https://item.rakuten.co.jp/example-shop/book-1/", "#item-name-area"],
+  ["oreilly-japan-product", "https://www.oreilly.co.jp/books/9780000000002/", "#maincontent .pageWidth h1[itemprop='name']"],
+  ["gihyo-dp-product", "https://gihyo.jp/dp/ebook/2026/978-0-000-00000-2", "#bookInforMain #bookTitle"],
+  ["seshop-product", "https://www.seshop.com/product/detail/10001", ".cx_container_contents > section > h1"],
 ])("places %s's badge at the product title instead of the header or page top", async (name, url, selector) => {
-  document.body.innerHTML = new DOMParser().parseFromString(readFileSync(`tests/fixtures/${name}.html`, "utf8"), "text/html").body.innerHTML;
+  const fixture = new DOMParser().parseFromString(readFileSync(`tests/fixtures/${name}.html`, "utf8"), "text/html");
+  document.head.innerHTML = fixture.head.innerHTML;
+  document.body.innerHTML = fixture.body.innerHTML;
   const send = vi.fn().mockResolvedValue({ result: "matches", label: "記録あり" });
   await new PageController(document, () => url, send).refresh();
   const badge = document.querySelector("[data-motteta]")!;

@@ -1,12 +1,14 @@
 ---
 name: motteta-import
-description: Read user-authorized book purchase history with Codex's connected browser and import observations and coverage into a local Motteta ledger. Use for Amazon, Rakuten Books, Rakuten Ichiba book orders, and ebook owned lists; exclude Rakuten Kobo and order changes.
+description: Import user-authorized book purchase history and owned lists into Motteta with Codex's connected browser. Use for Amazon, Rakuten Books and marketplace book orders, O'Reilly Japan Ebook Store, Gihyo Digital Publishing, and SEshop. Exclude Rakuten Kobo and order changes.
 ---
 
 # Import book history with Codex
 
 Use the user's Codex subscription and connected browser. This workflow requires no Platform API key or app-owned model call.
-Read [the input contract](../../../docs/contracts.md), [the collection guide](../../../docs/collection.md), and `schemas/history-batch.schema.json` before collection.
+Read [the input contract](../../../docs/contracts.md), [the collection guide](../../../docs/collection.md), and `schemas/history-batch.schema.json` before collection. Read only the relevant store-specific guide: [O'Reilly Japan Ebook Store](../../../docs/collection/oreilly.md), [Gihyo Digital Publishing](../../../docs/collection/gihyo.md), or [SEshop](../../../docs/collection/seshop.md).
+
+Resolve “O'Reilly” or “oreilly” to the Japan Ebook Store, “gihyo” to Gihyo Digital Publishing, and “SEshop” or “seshop” to the Shoeisha store, unless the user explicitly specifies another service. Keep O'Reilly's subscription learning service and the Gihyo Direct paper-book shop separate. Reuse existing seller IDs before applying a guide's new-seller naming convention. For a multi-store request, create separate history batches and coverage reports for each source and account.
 
 A source and a period are sufficient for a normal request, such as “import books bought from Rakuten in the last month.” Codex owns navigation, metadata lookup, input preparation, duplicate checks, import, and reporting. Do not require the user to pre-open a history page, provide URLs or ISBNs, prepare JSON, name an account alias, or repeat these common rules.
 
@@ -26,6 +28,10 @@ Use dedicated work tabs in the existing browser session and track their IDs. Bef
 Unless the user specifies another quantity policy, the default is one copy when the quantity cannot be established from the current page or the same existing purchase. Use `quantity: 1` without extra browsing or a quantity question. Preserve explicitly supplied, observed, or already recorded quantities for that purchase. Record use of the one-copy convention in the evidence rather than claiming it was displayed. Do not open receipts or payment-related pages solely to determine quantity unless the user requests that investigation.
 
 Follow the source-specific collection guide. Resolve available bibliographic information yourself; do not ask the user to research ISBNs or product identifiers. Leave missing ISBNs, dates, or order IDs unknown. Keep unidentified purchases in review rather than guessing their identity. Do not infer cancellation from absence, infer a purchase from a metadata page, or count PDF and EPUB downloads as separate purchases.
+
+For owned lists, follow the collection guide's period and identity rules. A stable purchased-item ID must identify an account's acquisition or entitlement; do not invent `holding_id` from a product ID, ISBN, row position, or download URL. Keep one identity route per purchase across order history and owned-list observations, and supplement the same record instead of importing both views separately. A download's availability, update date, or format button is not a new purchase or a purchase date. File downloads and cloud transfers are unnecessary.
+
+For “all history,” encode the requested range as `0001-01-01` through today's date in the user's timezone; this is a coverage boundary, never a purchase date. For a bounded period, include undated items only if the page's verified filter or other evidence places them in that period. Otherwise leave them in `coverage.unverified`. Do not mark a period complete merely because the owned-list pages were exhausted.
 
 When a site-issued line ID is unavailable, do not fabricate one from a product ID. Use `external.derived_identity` with scheme `order_product_format_v1` only after inspecting the entire order's purchased items and verifying exactly one line for the chosen product identifier and format. Record `order_complete`, `matching_line_count`, the observation time, reference, and an explanatory note. Count purchased lines, not image/title links or quantities. If the order is incomplete or multiple matching lines exist, leave the identity unresolved. Each newly collected observation requires a new uniqueness check; its proof time and reference must match its latest `purchase_history` evidence. Do not relabel old proof with a new timestamp.
 

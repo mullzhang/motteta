@@ -1,0 +1,6 @@
+{
+  "id": "seshop",
+  "matches": ["https://www.seshop.com/product/detail/*"],
+  "scope": "seshop.com",
+  "anchorSelector": ".cx_container_contents > section > h1"
+}

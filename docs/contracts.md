@@ -25,7 +25,19 @@
 ISBNはチェック桁を検証し、ISBN-10をISBN-13へ正規化します。
 ISBNを購入の一意キーにしません。
 店舗の商品IDは `book.identifiers` に `namespace`、`scope`、`value` として保存します。
-拡張機能が使う組み合わせは、Amazonが `amazon / amazon.co.jp / ASIN`、楽天ブックスが `rakuten-books / books.rakuten.co.jp / 商品ID`、楽天市場が `rakuten-market / item.rakuten.co.jp/ショップID / 商品ID` です。
+拡張機能が使う組み合わせは次のとおりです。
+
+| サイト | `namespace` | `scope` | `value` |
+| --- | --- | --- | --- |
+| Amazon | `amazon` | `amazon.co.jp` | ASIN |
+| 楽天ブックス | `rakuten-books` | `books.rakuten.co.jp` | 商品ID |
+| 楽天市場 | `rakuten-market` | `item.rakuten.co.jp/ショップID` | 商品ID |
+| O’Reilly Japan | `oreilly-japan` | `oreilly.co.jp` | `/books/` の後の13桁の番号 |
+| Gihyo Digital Publishing | `gihyo-dp` | `gihyo.jp/dp` | 電子書籍URL末尾のISBNからハイフンを除いた値 |
+| SEshop | `seshop` | `seshop.com` | `/product/detail/` の後の商品ID。書誌欄の「商品番号」とは別。 |
+
+これらは商品を識別する情報で、購入や明細のIDではありません。
+O’Reillyの紙と電子の併売ページ、SEshopの紙とPDFのセットは、候補の `format` を `unknown` として照合します。
 
 同じ依頼には同じ `request_id` と同じ内容を使います。
 同じIDで内容が異なる場合は競合となります。

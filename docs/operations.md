@@ -33,7 +33,7 @@ mise exec -- uv run --locked motteta doctor
 
 ## 拡張機能の権限
 
-自動照合の対象は `amazon.co.jp`、`www.amazon.co.jp`、`books.rakuten.co.jp`、`item.rakuten.co.jp` です。
+自動照合の対象は `amazon.co.jp`、`www.amazon.co.jp`、`books.rakuten.co.jp`、`item.rakuten.co.jp`、`www.oreilly.co.jp`、`gihyo.jp`、`www.seshop.com` です。
 対応する商品ページを読み取る権限と、Mac内の台帳へ接続する権限を使います。
 一般の閲覧履歴、Cookie、決済情報を収集する機能はありません。
 ブラウザのサイトへのアクセス設定によって、自動実行を許可する必要があります。

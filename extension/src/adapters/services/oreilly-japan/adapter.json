@@ -1,0 +1,6 @@
+{
+  "id": "oreilly-japan",
+  "matches": ["https://www.oreilly.co.jp/books/*"],
+  "scope": "oreilly.co.jp",
+  "anchorSelector": "#maincontent .pageWidth h1[itemprop='name']"
+}

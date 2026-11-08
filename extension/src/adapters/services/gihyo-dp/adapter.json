@@ -1,0 +1,6 @@
+{
+  "id": "gihyo-dp",
+  "matches": ["https://gihyo.jp/dp/ebook/*"],
+  "scope": "gihyo.jp/dp",
+  "anchorSelector": "#bookInforMain #bookTitle"
+}

@@ -55,7 +55,9 @@ mise exec -- uv run --locked motteta init
 
 Chromeのツールバーにある拡張機能の一覧（パズルのアイコン）から、Mottetaを固定しておくと詳細を開きやすくなります。
 Mottetaの「サイトへのアクセス」では、照合に使う対応サイトでの実行を許可してください。
-対象はAmazon.co.jp、楽天ブックス、楽天市場です。
+対象はAmazon.co.jp、楽天ブックス、楽天市場、O’Reilly Japan、Gihyo Digital Publishing、SEshopです。
+すでに導入済みの拡張を更新した場合は、拡張機能と商品ページを再読み込みしてください。
+追加サイトで判定が出ない場合は、Mottetaの「サイトへのアクセス」でそのサイトを許可しているか確認します。
 
 ## 4. Chromeと台帳を接続する
 

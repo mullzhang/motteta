@@ -17,16 +17,22 @@
   "host_permissions": [
     "https://amazon.co.jp/*",
     "https://books.rakuten.co.jp/*",
+    "https://gihyo.jp/*",
     "https://item.rakuten.co.jp/*",
-    "https://www.amazon.co.jp/*"
+    "https://www.amazon.co.jp/*",
+    "https://www.oreilly.co.jp/*",
+    "https://www.seshop.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "https://amazon.co.jp/*",
         "https://books.rakuten.co.jp/rb/*",
+        "https://gihyo.jp/dp/ebook/*",
         "https://item.rakuten.co.jp/*",
-        "https://www.amazon.co.jp/*"
+        "https://www.amazon.co.jp/*",
+        "https://www.oreilly.co.jp/books/*",
+        "https://www.seshop.com/product/detail/*"
       ],
       "js": [
         "content.js"
