@@ -126,10 +126,10 @@ Codexに候補と判断が必要な点を説明させ、確認できた内容に
 
 ## CLIで一覧や記録を見る
 
-ターミナルでこのリポジトリのフォルダーを開き、次を実行すると、登録済みの本を表で表示できます。
+ターミナルで次を実行すると、登録済みの本を表で表示できます。
 
 ```sh
-mise exec -- uv run --locked motteta list
+motteta list
 ```
 
 一覧には書名、形態、購入先、入手日が並びます。
@@ -137,13 +137,13 @@ mise exec -- uv run --locked motteta list
 
 ```sh
 # 書名や著者名などで検索
-mise exec -- uv run --locked motteta search "AI"
+motteta search "AI"
 
 # 記録IDを指定して詳細を表示
-mise exec -- uv run --locked motteta show "対象の記録ID"
+motteta show "対象の記録ID"
 
 # 未解消の確認対象を表示
-mise exec -- uv run --locked motteta review list
+motteta review list
 ```
 
 購入記録の作成が保留されている本は、登録済みの一覧には含まれません。`review list` で確認してください。
