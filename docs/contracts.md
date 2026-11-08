@@ -140,6 +140,7 @@ motteta bind-identity <record-id> --input <binding.json> --json
 `list` と `search` は通常は表を表示し、`--json` を指定すると `records` 配列を返します。
 `show <record-id>` は詳細を表示し、`--json` を指定すると `record` に対象記録を返します。統合済みの記録IDは統合先へ対応付けます。
 `check`、`status` はそれぞれの照会結果を返します。
+CLIの見出し、状態名、案内文は英語です。`check` の `label` は `Record found`、`Possible match`、`No record`、`Unable to identify` のいずれかです。
 
 | コード | 意味 |
 | --- | --- |

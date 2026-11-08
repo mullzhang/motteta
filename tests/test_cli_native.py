@@ -68,6 +68,25 @@ def test_cli_end_to_end_with_stdin(tmp_path, record_data):
     assert cli(tmp_path, "init", "--json").returncode == 3
 
 
+@pytest.mark.parametrize(
+    "candidate,label",
+    [
+        ({"isbn": "9780000000002"}, "Record found"),
+        ({"title": "架空の技術書", "isbn": "9780000000019"}, "Possible match"),
+        ({"isbn": "9780000000019"}, "No record"),
+        ({}, "Unable to identify"),
+    ],
+)
+def test_cli_check_labels_are_english(ledger, record, candidate, label):
+    ledger.add(record)
+    candidate = {"schema_version": 1, "format": "print", **candidate}
+    for options in ([], ["--json"]):
+        result = cli(ledger.db.directory, "check", "--input", "-", *options, input=candidate)
+        assert result.returncode == 0, result.stderr
+        assert json.loads(result.stdout)["label"] == label
+        assert not result.stderr
+
+
 def test_cli_version_help_and_doctor(tmp_path):
     assert cli(tmp_path, "--version").stdout.strip() == "0.1.0"
     assert "browser" in cli(tmp_path, "--help").stdout
@@ -116,6 +135,7 @@ def test_native_protocol_and_origin_are_read_only(ledger, record):
     result = read_message(output)
     assert result["request_id"] == "native-1"
     assert result["matches"][0]["kind"] == "exact"
+    assert result["label"] == "記録あり"
     assert json.loads(ledger.export("json"))["tables"] == before
     with pytest.raises(MottetaError, match="Caller"):
         serve(directory, "https://www.amazon.co.jp", framed(request), io.BytesIO())

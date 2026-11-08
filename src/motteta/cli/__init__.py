@@ -13,7 +13,7 @@ from pydantic import ValidationError
 from typer._click.exceptions import ClickException
 
 from motteta import __version__, browser
-from motteta.cli.display import print_record, print_records
+from motteta.cli.display import CHECK_LABELS, print_record, print_records
 from motteta.core.errors import MottetaError
 from motteta.core.ledger import Ledger
 from motteta.core.models import (
@@ -138,7 +138,9 @@ def show(ctx: typer.Context, record_id: str):
 @app.command()
 def check(ctx: typer.Context, input: Input):
     """Check a purchase candidate against the local ledger."""
-    emit(ctx, Ledger(ctx.obj.directory).check(read_input(input, Candidate)))
+    result = Ledger(ctx.obj.directory).check(read_input(input, Candidate))
+    result["label"] = CHECK_LABELS[result["label"]]
+    emit(ctx, result)
 
 
 @app.command()

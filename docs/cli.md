@@ -10,7 +10,7 @@
 mise exec -- uv run --locked motteta list
 ```
 
-書名、形態、購入先、入手日を表で表示します。
+書名（`Title`）、形態（`Format`）、購入先（`Source`）、入手日（`Acquired`）を表で表示します。
 同じ本を複数回購入していれば、購入ごとの記録が並びます。
 
 ## 書名や著者名で検索する

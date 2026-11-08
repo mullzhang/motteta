@@ -27,9 +27,10 @@ def test_list_is_readable_and_preserves_long_literal_titles(ledger, record_data,
     before = ledger.export("json")
     result = cli(ledger.db.directory, "list", width=width)
     assert result.returncode == 0, result.stderr
-    assert "書名" in result.stdout and "形態" in result.stdout
-    assert "架空書店" in result.stdout and "紙" in result.stdout
-    assert "不明" in result.stdout and "1件" in result.stdout
+    assert "Title" in result.stdout and "Format" in result.stdout
+    assert "Source" in result.stdout and "Acquired" in result.stdout
+    assert "架空書店" in result.stdout and "Print" in result.stdout
+    assert "Unknown" in result.stdout and "1 record" in result.stdout
     assert "決定的な末尾" in "".join(result.stdout.split())
     assert "[red]" in result.stdout and "[/red]" in "".join(result.stdout.split())
     assert "…" not in result.stdout and "\x1b" not in result.stdout
@@ -57,15 +58,15 @@ def test_search_returns_a_table_for_matching_books(ledger, record_data):
     ledger.add(AddRecord.model_validate(second))
     result = cli(ledger.db.directory, "search", "別の著者")
     assert result.returncode == 0
-    assert "別の電子書籍" in result.stdout and "電子" in result.stdout
-    assert "架空の技術書" not in result.stdout and "1件" in result.stdout
+    assert "別の電子書籍" in result.stdout and "Digital" in result.stdout
+    assert "架空の技術書" not in result.stdout and "1 record" in result.stdout
 
 
 @pytest.mark.parametrize("args", [("list",), ("search", "存在しない本")])
 def test_empty_results_use_a_plain_message(ledger, args):
     result = cli(ledger.db.directory, *args)
     assert result.returncode == 0
-    assert result.stdout.strip() == "該当する本はありません。"
+    assert result.stdout.strip() == "No matching books."
     assert not result.stderr
 
 
@@ -77,16 +78,17 @@ def test_show_displays_full_details_and_json(ledger, record_data):
     for text in (
         "架空の技術書",
         "架空の著者",
-        "電子",
-        "PDF、EPUB",
-        "所持申告",
-        "所持",
-        "1冊",
-        "不明",
+        "Digital",
+        "PDF, EPUB",
+        "Ownership assertion",
+        "Owned",
+        "Quantity",
+        "N/A",
+        "Unknown",
         record_id,
     ):
         assert text in result.stdout
-    assert "記録ID" in result.stdout and "schema_version" not in result.stdout
+    assert "Record ID" in result.stdout and "schema_version" not in result.stdout
     assert "\x1b" not in result.stdout and not result.stderr
     machine = cli(ledger.db.directory, "show", record_id, "--json")
     assert machine.returncode == 0
