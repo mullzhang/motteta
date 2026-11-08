@@ -7,27 +7,11 @@
 ## 登録した本の一覧を見る
 
 ```sh
-mise exec -- uv run --locked motteta export --format csv
+mise exec -- uv run --locked motteta list
 ```
 
-登録済みの入手記録をCSVで表示します。
-`id` は記録ID、`title` は書名、`format` は紙か電子か、`source` は購入先、`acquired_on` は購入日、`quantity` は数量です。
-注文状態は `order_state`、所持状態は `possession_state` で確認できます。
-`format` の `print` は紙、`digital` は電子、`unknown` は不明を表します。
+書名、形態、購入先、入手日を表で表示します。
 同じ本を複数回購入していれば、購入ごとの記録が並びます。
-
-CSVファイルとして保存して表計算ソフトで開くこともできます。
-次の例はホームフォルダーへ保存します。
-
-```sh
-mise exec -- uv run --locked motteta export --format csv > "$HOME/motteta-books.csv"
-```
-
-詳しい情報を含む全記録は、空の検索語を指定するとJSONで表示できます。
-
-```sh
-mise exec -- uv run --locked motteta search ""
-```
 
 ## 書名や著者名で検索する
 
@@ -37,7 +21,39 @@ mise exec -- uv run --locked motteta search "AI"
 
 検索語を、探したい書名や著者名の一部に置き換えてください。
 ISBNや店舗の商品IDでも検索できます。
-結果はJSONの `records` に表示されます。該当する記録がない場合は空の配列になります。
+該当する本を一覧と同じ表で表示します。
+
+## 本の詳細を見る
+
+登録時に返された記録IDを指定します。
+
+```sh
+mise exec -- uv run --locked motteta show "対象の記録ID"
+```
+
+書名の全文、著者、形態、購入先、購入日、数量、注文状態、所持状態などを表示します。
+
+## シェルやほかのツールから連携する
+
+`list`、`search`、`show` は、`--json` を付けると機械処理向けのJSONを返します。
+
+```sh
+mise exec -- uv run --locked motteta list --json
+mise exec -- uv run --locked motteta search "AI" --json
+mise exec -- uv run --locked motteta show "対象の記録ID" --json
+```
+
+`list` と `search` は `records` 配列、`show` は `record` に記録を返します。
+各記録の `id` が `show` に渡す記録IDです。
+シェル関数で `list --json` の結果を整形すれば、pecoなどで選んだ記録の詳細を `show` で表示できます。
+
+## CSVへ書き出す
+
+ホームフォルダーへCSVファイルを保存します。
+
+```sh
+mise exec -- uv run --locked motteta export --format csv > "$HOME/motteta-books.csv"
+```
 
 ## 確認待ちの本を見る
 
@@ -46,7 +62,7 @@ mise exec -- uv run --locked motteta review list
 ```
 
 未解消の確認対象をJSONの `reviews` に表示します。
-入手を識別できずに確認対象として保存された本は、購入記録として確定するまで `search` やCSVの一覧に含まれません。
+入手を識別できずに確認対象として保存された本は、購入記録として確定するまで `list` や `search` の一覧に含まれません。
 確認対象の `payload` に確認に必要な情報、`kind` に確認が必要な理由が入ります。
 例えば `missing_identity` は、購入や入手を識別する情報が不足していることを表します。
 解消する場合は、Codexへ対象の確認対象IDと依頼内容を伝えてください。
@@ -69,7 +85,6 @@ mise exec -- uv run --locked motteta export --help
 ```
 
 コマンド一覧は `--help`、各コマンドの引数やオプションは、そのコマンドの後ろへ付ける `--help` で表示します。
-通常の照会結果もJSONです。`--json` を付けると改行や字下げを省いた機械処理向けのJSONになります。
 
 ## その他の操作
 

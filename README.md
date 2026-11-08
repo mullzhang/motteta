@@ -126,21 +126,21 @@ Codexに候補と判断が必要な点を説明させ、確認できた内容に
 
 ## CLIで一覧や記録を見る
 
-ターミナルでこのリポジトリのフォルダーを開き、次を実行すると、登録済みの本の一覧をCSVで表示できます。
+ターミナルでこのリポジトリのフォルダーを開き、次を実行すると、登録済みの本を表で表示できます。
 
 ```sh
-mise exec -- uv run --locked motteta export --format csv
+mise exec -- uv run --locked motteta list
 ```
 
-書名、紙か電子か、購入先、購入日、数量、注文状態、所持状態を確認できます。
+一覧には書名、形態、購入先、入手日が並びます。
 詳しい記録や確認待ちの本を見るには、次のコマンドを使います。
 
 ```sh
-# 登録済みの全記録をJSONで表示
-mise exec -- uv run --locked motteta search ""
-
 # 書名や著者名などで検索
 mise exec -- uv run --locked motteta search "AI"
+
+# 記録IDを指定して詳細を表示
+mise exec -- uv run --locked motteta show "対象の記録ID"
 
 # 未解消の確認対象を表示
 mise exec -- uv run --locked motteta review list

@@ -541,6 +541,12 @@ class Ledger:
                     matches.append(record)
             return {"schema_version": 1, "result": "ok", "records": matches}
 
+    def get(self, record_id: str) -> dict:
+        with self.db.connect() as conn:
+            canonical = self._canonical(conn, record_id)
+            record = next(record for record in self._records(conn) if record["id"] == canonical)
+            return {"schema_version": 1, "result": "ok", "record": record}
+
     @staticmethod
     def _status(conn) -> dict:
         groups = {}

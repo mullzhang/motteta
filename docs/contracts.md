@@ -137,7 +137,9 @@ motteta bind-identity <record-id> --input <binding.json> --json
 `--json` はコマンドの前後どちらにも指定できます。
 書き出し以外の機械向け応答は標準出力のJSONで、引数や入力の不備も同じ形式で返します。
 購入記録の作成、更新、既存件数、確認対象、記録IDを結果に含めます。
-`search`、`check`、`status` はそれぞれの照会結果を返します。
+`list` と `search` は通常は表を表示し、`--json` を指定すると `records` 配列を返します。
+`show <record-id>` は詳細を表示し、`--json` を指定すると `record` に対象記録を返します。統合済みの記録IDは統合先へ対応付けます。
+`check`、`status` はそれぞれの照会結果を返します。
 
 | コード | 意味 |
 | --- | --- |

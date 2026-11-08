@@ -13,6 +13,7 @@ from pydantic import ValidationError
 from typer._click.exceptions import ClickException
 
 from motteta import __version__, browser
+from motteta.cli.display import print_record, print_records
 from motteta.core.errors import MottetaError
 from motteta.core.ledger import Ledger
 from motteta.core.models import (
@@ -105,10 +106,33 @@ def import_history(ctx: typer.Context, history: Path, dry_run: bool = False):
     )
 
 
+@app.command("list")
+def list_books(ctx: typer.Context):
+    """List registered books in a readable table."""
+    display_records(ctx, Ledger(ctx.obj.directory).search(""))
+
+
+def display_records(ctx: typer.Context, result: dict) -> None:
+    if ctx.obj.json_output:
+        emit(ctx, result)
+    else:
+        print_records(result["records"])
+
+
 @app.command()
 def search(ctx: typer.Context, term: str):
     """Search titles, authors, ISBNs, and product identifiers."""
-    emit(ctx, Ledger(ctx.obj.directory).search(term))
+    display_records(ctx, Ledger(ctx.obj.directory).search(term))
+
+
+@app.command()
+def show(ctx: typer.Context, record_id: str):
+    """Show a book's purchase and ownership details."""
+    result = Ledger(ctx.obj.directory).get(record_id)
+    if ctx.obj.json_output:
+        emit(ctx, result)
+    else:
+        print_record(result["record"])
 
 
 @app.command()

@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 license = "MIT"
 authors = [{name = "mullzhang"}]
-dependencies = ["typer>=0.28,<0.29", "pydantic>=2.11,<3"]
+dependencies = ["typer>=0.28,<0.29", "pydantic>=2.11,<3", "rich>=15,<16"]
 
 [project.scripts]
 motteta = "motteta.cli:main"
