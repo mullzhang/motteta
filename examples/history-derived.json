@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "import_id": "example-derived-history-001",
+  "source": {"id": "example-online-store", "name": "架空のオンライン書店", "kind": "online"},
+  "account": "personal",
+  "observed_at": "2026-11-07T12:00:00+09:00",
+  "records": [{
+    "item_id": "example-order-001-item-1",
+    "book": {
+      "title": "架空の電子書籍",
+      "format": "digital",
+      "identifiers": [{"namespace": "example-books", "scope": "books.example.invalid", "value": "example-product-001"}]
+    },
+    "acquisition_kind": "purchase",
+    "quantity": 1,
+    "acquired_on": "2026-10-20",
+    "order_state": "completed",
+    "possession_state": "unknown",
+    "external": {
+      "order_id": "example-order-001",
+      "line_id": null,
+      "holding_id": null,
+      "derived_identity": {
+        "scheme": "order_product_format_v1",
+        "product": {"namespace": "example-books", "scope": "books.example.invalid", "value": "example-product-001"},
+        "format": "digital",
+        "order_complete": true,
+        "matching_line_count": 1,
+        "observed_at": "2026-11-07T11:50:00+09:00",
+        "reference": "https://books.example.invalid/history/order-001",
+        "note": "注文全体の購入明細を確認し、この商品IDと電子版に対応する明細は1件だった。画像と書名のリンクは同じ明細に属する。"
+      }
+    },
+    "evidence": [{
+      "kind": "purchase_history",
+      "observed_at": "2026-11-07T11:50:00+09:00",
+      "reference": "https://books.example.invalid/history/order-001"
+    }]
+  }],
+  "coverage": {
+    "requested_start": "2026-10-01",
+    "requested_end": "2026-10-31",
+    "checked_start": "2026-10-01",
+    "checked_end": "2026-10-31",
+    "status": "complete",
+    "visited": ["架空の履歴画面、2026年10月"]
+  }
+}

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "motteta"
+version = "0.1.0"
+description = "A local book purchase ledger with browser duplicate-purchase checks"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+authors = [{name = "mullzhang"}]
+dependencies = ["typer>=0.28,<0.29", "pydantic>=2.11,<3"]
+
+[project.scripts]
+motteta = "motteta.cli:main"
+motteta-native-host = "motteta.native_host:main"
+
+[dependency-groups]
+dev = ["pre-commit>=4.2,<5", "ruff>=0.11,<1", "pytest>=8.3,<10", "pyyaml>=6,<7"]
+
+[tool.uv]
+python-downloads = "never"
+python-preference = "only-system"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

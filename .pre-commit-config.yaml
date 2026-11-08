@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: lint
+        name: Python lint, formatting, and TypeScript types
+        entry: mise run lint
+        language: system
+        pass_filenames: false
+        types: [text]
+      - id: file-format
+        name: Whitespace, JSON, YAML, and TOML syntax
+        entry: uv run --locked python scripts/check_files.py
+        language: system
+        types: [text]

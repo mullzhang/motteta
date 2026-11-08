@@ -1,0 +1,507 @@
+{
+  "$defs": {
+    "Book": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "authors": {
+          "items": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Authors",
+          "type": "array"
+        },
+        "isbn": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Isbn"
+        },
+        "identifiers": {
+          "items": {
+            "$ref": "#/$defs/Identifier"
+          },
+          "title": "Identifiers",
+          "type": "array"
+        },
+        "format": {
+          "enum": [
+            "print",
+            "digital",
+            "unknown"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "volume": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume"
+        },
+        "edition": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Edition"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Language"
+        },
+        "edition_id": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Edition Id"
+        },
+        "file_formats": {
+          "items": {
+            "enum": [
+              "pdf",
+              "epub",
+              "mobi",
+              "other"
+            ],
+            "type": "string"
+          },
+          "title": "File Formats",
+          "type": "array"
+        },
+        "reference_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Url"
+        }
+      },
+      "required": [
+        "title",
+        "format"
+      ],
+      "title": "Book",
+      "type": "object"
+    },
+    "DerivedIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "const": "order_product_format_v1",
+          "title": "Scheme",
+          "type": "string"
+        },
+        "product": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "format": {
+          "enum": [
+            "print",
+            "digital"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "order_complete": {
+          "title": "Order Complete",
+          "type": "boolean"
+        },
+        "matching_line_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Matching Line Count"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "reference": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reference",
+          "type": "string"
+        },
+        "note": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scheme",
+        "product",
+        "format",
+        "order_complete",
+        "matching_line_count",
+        "observed_at",
+        "reference",
+        "note"
+      ],
+      "title": "DerivedIdentity",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "user_assertion",
+            "purchase_history",
+            "owned_list",
+            "receipt"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "reference": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "kind",
+        "observed_at"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "ExternalRef": {
+      "additionalProperties": false,
+      "properties": {
+        "order_id": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Order Id"
+        },
+        "line_id": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line Id"
+        },
+        "holding_id": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Holding Id"
+        },
+        "derived_identity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DerivedIdentity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "ExternalRef",
+      "type": "object"
+    },
+    "Identifier": {
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Namespace",
+          "type": "string"
+        },
+        "scope": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "namespace",
+        "scope",
+        "value"
+      ],
+      "title": "Identifier",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "online",
+            "physical"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "title": "Source",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "book": {
+      "$ref": "#/$defs/Book"
+    },
+    "acquisition_kind": {
+      "enum": [
+        "purchase",
+        "ownership_assertion"
+      ],
+      "title": "Acquisition Kind",
+      "type": "string"
+    },
+    "quantity": {
+      "exclusiveMinimum": 0,
+      "title": "Quantity",
+      "type": "integer"
+    },
+    "acquired_on": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Acquired On"
+    },
+    "order_state": {
+      "anyOf": [
+        {
+          "enum": [
+            "completed",
+            "ordered",
+            "preordered",
+            "cancelled",
+            "returned",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Order State"
+    },
+    "possession_state": {
+      "enum": [
+        "owned",
+        "disposed",
+        "gift",
+        "unknown"
+      ],
+      "title": "Possession State",
+      "type": "string"
+    },
+    "external": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExternalRef"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "minItems": 1,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "request_id": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "source": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Source"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "account": {
+      "anyOf": [
+        {
+          "maxLength": 2000,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Account"
+    }
+  },
+  "required": [
+    "book",
+    "acquisition_kind",
+    "quantity",
+    "order_state",
+    "possession_state",
+    "evidence",
+    "schema_version",
+    "request_id"
+  ],
+  "title": "AddRecord",
+  "type": "object"
+}

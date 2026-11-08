@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "import_id": "example-history-001",
+  "source": {"id": "example-online-store", "name": "架空のオンライン書店", "kind": "online"},
+  "account": "personal",
+  "observed_at": "2026-11-07T12:00:00+09:00",
+  "records": [{
+    "item_id": "order-001-line-1",
+    "book": {"title": "架空の別の本", "isbn": "9780000000019", "format": "digital", "file_formats": ["pdf", "epub"]},
+    "acquisition_kind": "purchase",
+    "quantity": 1,
+    "acquired_on": "2026-10-20",
+    "order_state": "completed",
+    "possession_state": "unknown",
+    "external": {"order_id": "example-order-001", "line_id": "stable-line-001"},
+    "evidence": [{"kind": "purchase_history", "observed_at": "2026-11-07T11:50:00+09:00", "reference": "https://example.invalid/history/order-001"}]
+  }],
+  "coverage": {
+    "requested_start": "2026-10-01",
+    "requested_end": "2026-10-31",
+    "checked_start": "2026-10-01",
+    "checked_end": "2026-10-31",
+    "status": "complete",
+    "visited": ["架空の履歴画面、2026年10月"]
+  }
+}

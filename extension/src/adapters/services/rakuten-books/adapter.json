@@ -1,0 +1,6 @@
+{
+  "id": "rakuten-books",
+  "matches": ["https://books.rakuten.co.jp/rb/*"],
+  "scope": "books.rakuten.co.jp",
+  "anchorSelector": "#productInfo h1"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "amazon",
+  "matches": ["https://www.amazon.co.jp/*", "https://amazon.co.jp/*"],
+  "scope": "amazon.co.jp",
+  "anchorSelector": "#title, #productTitle"
+}

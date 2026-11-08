@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "request_id": "example-correction-001",
+  "reason": "売却したため、所持状態だけを訂正する",
+  "fields": {"possession_state": "disposed"}
+}

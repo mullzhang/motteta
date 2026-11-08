@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "request_id": "example-owned-001",
+  "book": {
+    "title": "架空の技術書",
+    "authors": ["架空の著者"],
+    "isbn": "9780000000002",
+    "format": "print"
+  },
+  "source": {"id": "example-bookshop", "name": "架空書店", "kind": "physical"},
+  "acquisition_kind": "ownership_assertion",
+  "quantity": 1,
+  "acquired_on": null,
+  "order_state": null,
+  "possession_state": "owned",
+  "evidence": [{"kind": "user_assertion", "observed_at": "2026-11-07T12:00:00+09:00", "note": "架空の所持申告です"}]
+}

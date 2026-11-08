@@ -1,0 +1,6 @@
+{
+  "id": "rakuten-market",
+  "matches": ["https://item.rakuten.co.jp/*"],
+  "scope": "item.rakuten.co.jp",
+  "anchorSelector": "#item-name-area"
+}

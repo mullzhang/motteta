@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "DerivedIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "const": "order_product_format_v1",
+          "title": "Scheme",
+          "type": "string"
+        },
+        "product": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "format": {
+          "enum": [
+            "print",
+            "digital"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "order_complete": {
+          "title": "Order Complete",
+          "type": "boolean"
+        },
+        "matching_line_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Matching Line Count"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "reference": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reference",
+          "type": "string"
+        },
+        "note": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scheme",
+        "product",
+        "format",
+        "order_complete",
+        "matching_line_count",
+        "observed_at",
+        "reference",
+        "note"
+      ],
+      "title": "DerivedIdentity",
+      "type": "object"
+    },
+    "Identifier": {
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Namespace",
+          "type": "string"
+        },
+        "scope": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "namespace",
+        "scope",
+        "value"
+      ],
+      "title": "Identifier",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "request_id": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "source_id": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "account": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Account",
+      "type": "string"
+    },
+    "order_id": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Order Id",
+      "type": "string"
+    },
+    "derived_identity": {
+      "$ref": "#/$defs/DerivedIdentity"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "reason",
+    "source_id",
+    "account",
+    "order_id",
+    "derived_identity"
+  ],
+  "title": "IdentityBinding",
+  "type": "object"
+}

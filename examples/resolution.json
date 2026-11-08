@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "request_id": "example-resolution-001",
+  "action": "keep_separate",
+  "reason": "確認の結果、別の購入記録として保持する"
+}

@@ -1,0 +1,22 @@
+name: checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  offline-checks:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+        with:
+          version: 2026.10.19
+      - run: mise install --locked
+      - run: mise run deps
+      - run: mise run check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: motteta-distributions
+          path: dist/

@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Motteta",
+  "description": "ローカルの書籍台帳で、購入や所持の記録を照合します。",
+  "version": "0.1.0",
+  "permissions": [
+    "nativeMessaging"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Motteta"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsDwiXPr3pMHucYR/w7gIedyHrgOj0nWhpulPijrXNqdYkllPULFqxua0z6XTd8JjVVhyP0Kr1gJhQRiGEGSnYGAhuSWr7tgCxnymPte7AZ7PCFi8F63bF9yU55H4FwgbVRQpx5pZXZAXvEVCpxzQL82jh5EAguGnDncHJHJRiNfdetfslashdGLGFdR8r8wxaILu7jh3v4cjBABR1/hgN2Nq+fInHOJxjOH/vz7ZeP7fYC2s52jKWwYkwhCU17fopjnIieOfJlK+7YFowx/32XsDSgBd5CFV1w1aPOASuen23jTzPSD9Mg1Gh2uR8U+pTOhx6zU08ib6rk8KXYXVqwIDAQAB",
+  "host_permissions": [
+    "https://amazon.co.jp/*",
+    "https://books.rakuten.co.jp/*",
+    "https://item.rakuten.co.jp/*",
+    "https://www.amazon.co.jp/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://amazon.co.jp/*",
+        "https://books.rakuten.co.jp/rb/*",
+        "https://item.rakuten.co.jp/*",
+        "https://www.amazon.co.jp/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

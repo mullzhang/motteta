@@ -1,0 +1,32 @@
+[tools]
+python = "3.14.6"
+node = "26.1.0"
+uv = "0.11.16"
+
+[env]
+UV_PYTHON_DOWNLOADS = "never"
+UV_PYTHON_PREFERENCE = "only-system"
+
+[tasks.setup]
+description = "Install locked dependencies and local commit hooks"
+run = ["uv sync --locked --python \"$(mise which python)\"", "npm ci --prefix extension", "uv run --locked pre-commit install"]
+
+[tasks.deps]
+description = "Install locked dependencies without modifying Git hooks"
+run = ["uv sync --locked --python \"$(mise which python)\"", "npm ci --prefix extension"]
+
+[tasks.format]
+run = "uv run --locked ruff format ."
+
+[tasks.lint]
+run = ["uv run --locked ruff check .", "uv run --locked ruff format --check .", "npm run check --prefix extension"]
+
+[tasks.test]
+run = ["uv run --locked pytest", "npm test --prefix extension"]
+
+[tasks.build]
+run = ["uv build", "npm run build --prefix extension", "uv run --locked python scripts/package_extension.py"]
+
+[tasks.check]
+description = "Run offline checks, tests, schemas, and builds"
+run = ["uv lock --check", "uv run --locked python scripts/generate_schemas.py --check", "uv run --locked python scripts/check_all.py", "mise run test", "mise run build"]

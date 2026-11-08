@@ -1,0 +1,55 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "request_id": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "action": {
+      "enum": [
+        "same_work",
+        "same_edition",
+        "same_acquisition",
+        "keep_separate",
+        "accept_record"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "target_record_id": {
+      "anyOf": [
+        {
+          "maxLength": 2000,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Record Id"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "action",
+    "reason"
+  ],
+  "title": "Resolution",
+  "type": "object"
+}
