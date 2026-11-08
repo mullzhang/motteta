@@ -3,7 +3,6 @@
 ターミナルから、登録した本の一覧、検索結果、確認対象を閲覧する方法を説明します。
 導入がまだの場合は[初期設定](setup.md)を先に行ってください。
 以下のコマンドはすべて、このリポジトリのフォルダー（README.mdのある場所）で実行します。
-グローバルインストールや、通常の台帳の保存先指定は不要です。
 
 ## 登録した本の一覧を見る
 
@@ -25,7 +24,6 @@ mise exec -- uv run --locked motteta export --format csv > "$HOME/motteta-books.
 ```
 
 詳しい情報を含む全記録は、空の検索語を指定するとJSONで表示できます。
-一覧専用の `list` コマンドはありません。
 
 ```sh
 mise exec -- uv run --locked motteta search ""
@@ -77,11 +75,11 @@ mise exec -- uv run --locked motteta export --help
 
 以下の表は `motteta` に続ける引数を示しています。
 実行するときは、上の例と同様に `mise exec -- uv run --locked motteta` に続けて指定します。
-JSONの入力ファイルが必要な操作は、通常はCodexへ依頼し、Codexが入力を作成して実行します。
+JSONの入力ファイルが必要な操作は、Codexへ依頼できます。
 
 | 引数 | 用途 |
 | --- | --- |
-| `init` | 新しい台帳を作る。既存の台帳には不要。 |
+| `init` | 新しい台帳を作る。 |
 | `add --input <file>` | 購入や所持の記録を1件追加する。 |
 | `import <file>` | 取得した履歴JSONを取り込む。サイトの閲覧自体はCodexが行う。 |
 | `check --input <file>` | 商品候補と台帳を照合する。 |
@@ -90,7 +88,7 @@ JSONの入力ファイルが必要な操作は、通常はCodexへ依頼し、Co
 | `bind-identity <record-id> --input <file>` | 確認済みの派生キーを既存の購入へ関連付ける。 |
 | `backup --output <file>` | 台帳のバックアップを保存する。 |
 | `restore --input <file> --output <file>` | バックアップを別のファイルへ復元する。 |
-| `export --format json` | 台帳全体を復元可能なJSONで書き出す。書籍一覧だけの出力とは異なる。 |
+| `export --format json` | 台帳全体を復元可能なJSONで書き出す。 |
 | `doctor` | 台帳やブラウザ接続の設定ファイルを点検する。 |
 | `browser install --browser chrome --extension-id <id>` | Chromeと台帳の接続を登録する。 |
 | `browser uninstall --browser chrome` | Chromeとの接続を解除する。 |
